@@ -9,14 +9,15 @@ import java.sql.*;
 @Slf4j
 public class MemberRepositoryV0 {
     public Member save(Member member) throws SQLException {
-        String sql = "insert into member (memberId, money) values(?, ?)";
+        String sql = "insert into member (member_id, money) values(?, ?)";
         Connection con = null;
         PreparedStatement pstmt = null;
-        con = getConnection();
         try {
+            con = getConnection();
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, member.getMemberId());
             pstmt.setInt(2, member.getMoney());
+            pstmt.executeUpdate();
             return member;
         } catch (SQLException e) {
             log.info("db error", e);
